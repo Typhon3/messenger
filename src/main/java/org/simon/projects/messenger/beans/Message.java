@@ -14,12 +14,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 @Entity
-@Table(name="Message")
+@Table(name="message")
 @XmlRootElement
 public class Message {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="idMessage")
 	private long id;
 	
@@ -30,19 +29,13 @@ public class Message {
 	private Date createdOn;
 	
 	@ManyToOne
-	@JoinColumn(name="User_idUser")
+	@JoinColumn(name="User_idUser", insertable=true, updatable=false, nullable=false)
 	private User user;
 	
 	public Message() {
 		
 	}
-	
-	public Message(long id, String content) {
-		this.id = id;
-		this.content = content;
-		this.user = new User(1, "Simon", "Leu");
-		this.createdOn = new Date();
-	}
+
 	
 	public long getId() {
 		return id;

@@ -2,10 +2,11 @@ package org.simon.projects.messenger.beans;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,12 +16,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 @Entity
-@Table(name="User")
+@Table(name="user")
 @XmlRootElement
 public class User {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="idUser")
 	private long id;
 	
@@ -30,17 +30,10 @@ public class User {
 	@Column(name="lastName")
 	private String lastName;
 	
-	@OneToMany(mappedBy="message")
+	@OneToMany(fetch =FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="user")
 	private List<Message> messages = new ArrayList<Message>();
 	
 	public User() {
-		
-	}
-	
-	public User(long id, String firstName, String lastName) {
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
 		
 	}
 	

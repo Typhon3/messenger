@@ -13,7 +13,7 @@
         <property name="connection.password">default</property>
 
         <!-- JDBC connection pool settings ... using built-in test pool -->
-        <property name="connection.pool_size">1</property>
+        <property name="connection.pool_size">5</property>
 
         <!-- Select our SQL dialect -->
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
@@ -24,7 +24,8 @@
 		<!-- Set the current session context -->
 		<property name="current_session_context_class">thread</property>
  
-
+ 		<mapping class="org.simon.projects.messenger.beans.Message"/>
+ 		<mapping class="org.simon.projects.messenger.beans.User"/>
     </session-factory>
 
 </hibernate-configuration>

@@ -12,16 +12,16 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.simon.projects.messenger.beans.Message;
-import org.simon.projects.messenger.services.MessageService;
+import org.simon.projects.messenger.beans.User;
+import org.simon.projects.messenger.services.UserService;
 
 /**
  * Root resource (exposed at "messages" path)
  */
-@Path("/messages")
-public class MessageResource {
+@Path("/users")
+public class UserResource {
 	
-	MessageService messageService = new MessageService();
+	UserService userService = new UserService();
 
 	/**
      * Method handling the HTTP GET request for all messages.
@@ -29,8 +29,9 @@ public class MessageResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-	public List<Message> getMessages() {
-		return messageService.getAllMessages();
+	public List<User> getUsers() {
+    	
+		return userService.getAllUsers();
 	}
     
     /**
@@ -38,32 +39,33 @@ public class MessageResource {
      * @return One particular massage returned as an XML response.
      */
     @GET
-    @Path("/{messageId}")
+    @Path("/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Message getMessage(@PathParam("messageId") long messageId) {
-    	return messageService.getMessage(messageId);
+    public User getUser(@PathParam("userId") long userId) {
+    	return userService.getUser(userId);
     }
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public boolean addMessage(Message msg) {
-    	return messageService.addMessage(msg);
+    public boolean addUser(User user) {
+    	return userService.addUser(user);
     }
     
     @DELETE
-    @Path("/messageId")
+    @Path("/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public boolean deleteMessagebyId(@PathParam("messageId") int id) {
-		return messageService.deleteById(id);
+    public boolean deleteUserbyId(@PathParam("userId") int id) {
+    	
+		return userService.deleteById(id);
     	
     }
 
     
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public boolean updateMessage(Message msg) {
-    	return messageService.updateMessage(msg);
+    public boolean updateUser(User user) {
+    	return userService.updateUser(user);
     }
     
     
