@@ -12,13 +12,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
+/**
+ * A bean for messages
+ * @author Simon Leu
+ * @version 1.3
+ */
 @Entity
 @Table(name="message")
 @XmlRootElement
 public class Message {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="idMessage")
 	private long id;
 	
@@ -60,6 +65,11 @@ public class Message {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	@Override
+	public String toString() {
+		return "Message [id=" + id + ", content=" + content + ", createdOn=" + createdOn + "]";
 	}
 	
 	

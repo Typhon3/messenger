@@ -16,7 +16,9 @@ import org.simon.projects.messenger.beans.Message;
 import org.simon.projects.messenger.services.MessageService;
 
 /**
- * Root resource (exposed at "messages" path)
+ * A resource created to handle requests from a REST client
+ * @author Simon Leu
+ * @version 1.4
  */
 @Path("/messages")
 public class MessageResource {
@@ -24,8 +26,8 @@ public class MessageResource {
 	MessageService messageService = new MessageService();
 
 	/**
-     * Method handling the HTTP GET request for all messages.
-     * @return All messages returned as an XML response.
+     * Method handling a GET request for all messages.
+     * @return All messages returned as a JSON response.
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -34,8 +36,8 @@ public class MessageResource {
 	}
     
     /**
-     * Method handling the HTTP GET rewuest for a singular message.
-     * @return One particular massage returned as an XML response.
+     * Method handling a GET request for a single message.
+     * @return One particular massage returned as a JSON response.
      */
     @GET
     @Path("/{messageId}")
@@ -44,22 +46,36 @@ public class MessageResource {
     	return messageService.getMessage(messageId);
     }
     
+    /**
+     * Method handling a POST request for a single message.
+     * @param msg The message that is to be created
+     * @return A long value with the created messages id is returned
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public boolean addMessage(Message msg) {
+    public long addMessage(Message msg) {
     	return messageService.addMessage(msg);
     }
     
+    /**
+     * Method handling a DELETE request for a single message
+     * @param id The id of the message that is to be deleted
+     * @return A boolean is returned to indicate the deletions success
+     */
     @DELETE
-    @Path("/messageId")
+    @Path("/{messageId}")
     @Produces(MediaType.APPLICATION_JSON)
     public boolean deleteMessagebyId(@PathParam("messageId") int id) {
 		return messageService.deleteById(id);
     	
     }
 
-    
+    /**
+     * Method handling a PUT request for a single message
+     * @param msg The message with the updated information
+     * @return A boolean is returned to indicate the updates success
+     */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public boolean updateMessage(Message msg) {

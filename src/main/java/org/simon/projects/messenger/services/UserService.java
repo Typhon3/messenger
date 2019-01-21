@@ -9,11 +9,22 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.simon.projects.messenger.beans.User;
 
+
+
+/**
+ * A service created to make changes to users in the database
+ * @author Simon Leu
+ * @version 1.4
+ */
 public class UserService {
 	
 	private SessionFactory factory = new Configuration().configure().buildSessionFactory();
 	private Session session = factory.getCurrentSession();
 
+	/**
+	 * Gets all users from the database
+	 * @return Returns a list of users
+	 */
 	public List<User> getAllUsers() {
 		session.beginTransaction();
 		Query query = session.createQuery("from User");
@@ -24,6 +35,12 @@ public class UserService {
 		
 	}
 	
+	
+	/**
+	 * Gets a single user from the database
+	 * @param id The id of the user to be returned
+	 * @return Returns a user
+	 */
 	public User getUser(long id) {
 		session.beginTransaction();
 		Query query = session.createQuery("from User where idUser = :id ");
@@ -34,6 +51,12 @@ public class UserService {
 		
 	}
 	
+	
+	/**
+	 * Updates a single user
+	 * @param user The user with the updated information
+	 * @return A boolean is returned to indicate the updates success
+	 */
 	public boolean updateUser(User user) {
 		session.beginTransaction();
 		Query query = session.createQuery("update User set firstName = :firstName, lastName = :lastName where idUser = :id ");
@@ -52,17 +75,28 @@ public class UserService {
 		
 	}
 	
-	public boolean addUser(User user) {
+	
+	/**
+	 * Adds a user to the database
+	 * @param user The user with the updated information
+	 * @return A boolean is returned to indicate the updates success
+	 */
+	public long addUser(User user) {
 		
 		session.beginTransaction();
-		session.save(user);
+		long id = (long) session.save(user);
 		session.getTransaction().commit();
 		session.close();
 		
-		return true;
+		return id;
 		
 	}
 
+	/**
+	 * Deletes a single user
+	 * @param id The id of the user that is to be deleted
+	 * @return A boolean is returned to indicate the deletions success
+	 */
 	public boolean deleteById(int id) {
 
 		session.beginTransaction();

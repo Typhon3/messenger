@@ -1,3 +1,4 @@
+
 package org.simon.projects.messenger.beans;
 
 import java.util.ArrayList;
@@ -14,13 +15,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
+/**
+ * A bean for users
+ * @author Simon Leu
+ * @version 1.3
+ */
 @Entity
 @Table(name="user")
 @XmlRootElement
 public class User {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="idUser")
 	private long id;
 	
@@ -29,9 +35,6 @@ public class User {
 	
 	@Column(name="lastName")
 	private String lastName;
-	
-	@OneToMany(fetch =FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="user")
-	private List<Message> messages = new ArrayList<Message>();
 	
 	public User() {
 		
@@ -57,12 +60,10 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public List<Message> getMessages() {
-		return messages;
-	}
-
-	public void setMessages(List<Message> messages) {
-		this.messages = messages;
+	
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + "]";
 	}
 
 

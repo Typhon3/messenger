@@ -16,7 +16,9 @@ import org.simon.projects.messenger.beans.User;
 import org.simon.projects.messenger.services.UserService;
 
 /**
- * Root resource (exposed at "messages" path)
+ * A resource created to handle requests from a REST client
+ * @author Simon Leu
+ * @version 1.3
  */
 @Path("/users")
 public class UserResource {
@@ -24,19 +26,18 @@ public class UserResource {
 	UserService userService = new UserService();
 
 	/**
-     * Method handling the HTTP GET request for all messages.
-     * @return All messages returned as an XML response.
+     * Method handling the HTTP GET request for all users.
+     * @return All users returned as a JSON response.
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
 	public List<User> getUsers() {
-    	
 		return userService.getAllUsers();
 	}
     
     /**
-     * Method handling the HTTP GET rewuest for a singular message.
-     * @return One particular massage returned as an XML response.
+     * Method handling the HTTP GET request for a single user.
+     * @return One particular user returned as a JSON response.
      */
     @GET
     @Path("/{userId}")
@@ -45,13 +46,25 @@ public class UserResource {
     	return userService.getUser(userId);
     }
     
+    
+    /**
+     * Method handling a POST request for a single user.
+     * @param user The user that is to be created
+     * @return A long value with the created users id is returned
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public boolean addUser(User user) {
+    public long addUser(User user) {
     	return userService.addUser(user);
     }
     
+    
+    /**
+     * Method handling a DELETE request for a single user
+     * @param id The id of the user that is to be deleted
+     * @return A boolean is returned to indicate the deletions success
+     */
     @DELETE
     @Path("/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -62,6 +75,11 @@ public class UserResource {
     }
 
     
+    /**
+     * Method handling a PUT request for a single user
+     * @param user The user with the updated information
+     * @return A boolean is returned to indicate the updates success
+     */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public boolean updateUser(User user) {
