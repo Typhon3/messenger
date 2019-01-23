@@ -21,13 +21,17 @@
 				<f:facet name="header">
 					<h:outputText value="Ihre Nachrichten" class="header" />
 				</f:facet>
-				<h:outputText value="#{msg.content}" class="thisUser" style=""
+
+				<h:outputText value="#{msg.content}" class="thisUser"
 					rendered="#{msg.user.id == messengerView.userId}" />
 
 
 				<div align="right">
+					<h:outputText class="otherUsername" value="#{msg.user.firstName}:"
+						rendered="#{msg.user.id != messengerView.userId}" />
 					<h:outputText class="otherUser" value="#{msg.content}"
 						rendered="#{msg.user.id != messengerView.userId}" />
+
 				</div>
 			</div>
 		</p:dataList>

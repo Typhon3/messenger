@@ -3,11 +3,26 @@
 .thisUser {
 	font-weight: bold;
 	font-size: 20px;
+	
+	border-style: solid;
+	border-radius: 16px;
+	border-color: #ddffff;
+	background-color: #ddffff;
+	display: table-cell;
 }
 
 .otherUser {
-	text-align: right;
 	font-size: 22px;
+	
+
+}
+.otherUsername {
+	font-size: 22px;
+	border-style: solid;
+	border-radius: 16px;
+	border-color: #99ff99;
+	background-color: #99ff99;
+	margin-right: 10px;
 }
 
 .header {
@@ -17,6 +32,15 @@
 .dataList {
 	margin-left: 20px;
 	margin-right: 20px;
+}
+
+.messageElement {
+	border-style: solid;
+	border-radius: 16px;
+	border-color: #ddffff;
+	background-color: #ddffff;
+	border-left: 6px solid #2196F3;
+	display: table-cell;
 }
 
 .footer {
