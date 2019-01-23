@@ -1,0 +1,44 @@
+@charset "ISO-8859-1";
+
+.thisUser {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.otherUser {
+	text-align: right;
+	font-size: 22px;
+}
+
+.header {
+	font-size: 30px;
+}
+
+.dataList {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #0e97f9;
+  color: white;
+  text-align: center;
+  padding-top: 15px;
+  font-size: 18px;
+  height: 4%;
+}
+
+h1 {
+	text-align: center;
+	font-size: 50px;
+}
+
+body {
+	background-color: #5ec3f2;
+	padding-left:10px;
+	padding-right: 10px;
+}

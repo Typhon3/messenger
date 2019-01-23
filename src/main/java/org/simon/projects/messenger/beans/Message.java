@@ -67,6 +67,7 @@ public class Message {
 		this.user = user;
 	}
 	
+	
 	@Override
 	public String toString() {
 		return "Message [id=" + id + ", content=" + content + ", createdOn=" + createdOn + "]";

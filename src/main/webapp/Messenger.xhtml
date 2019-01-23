@@ -8,19 +8,38 @@
 
 <h:head>
 	<title>Messenger</title>
-<!-- 	<link type="text/css" rel="stylesheet" href="" /> -->
-	
+	<link type="text/css" rel="stylesheet" href="../css/Messenger.css" />
+
 </h:head>
 <h:body>
+	<h1>MyMessenger</h1>
 	<h:form id="form">
-		<p:dataList value="#{messengerView.messages}" var="msg" type="unordered">
-	        <f:facet name="header">
-	            Messages
-	        </f:facet>
-	        #{msg.content}
-	    </p:dataList>
-	    <p:inputText id="msgInput"/>
+
+		<p:dataList value="#{messengerView.messages}" var="msg"
+			type="definition">
+			<div class="dataList">
+				<f:facet name="header">
+					<h:outputText value="Ihre Nachrichten" class="header" />
+				</f:facet>
+				<h:outputText value="#{msg.content}" class="thisUser" style=""
+					rendered="#{msg.user.id == messengerView.userId}" />
+
+
+				<div align="right">
+					<h:outputText class="otherUser" value="#{msg.content}"
+						rendered="#{msg.user.id != messengerView.userId}" />
+				</div>
+			</div>
+		</p:dataList>
+		<p:inputText id="msgInput"
+			title="Hier können sie ihre Nachricht hineinschreiben"
+			value="#{messengerView.messageContent}" />
+		<p:commandButton value="Abschicken" id="messageButton"
+			action="#{messengerView.makeMessage}" update=":form" />
 	</h:form>
+
+	<div class="footer">Dieses Programm wurde im Rahmen des Moduls
+		150 von Simon Leu geschrieben</div>
 </h:body>
 
 </html>

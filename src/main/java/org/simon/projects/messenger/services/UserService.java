@@ -90,7 +90,7 @@ public class UserService {
 	/**
 	 * Adds a user to the database
 	 * @param user The user with the updated information
-	 * @return A boolean is returned to indicate the updates success
+	 * @return Returns the updated users ID
 	 */
 	public long addUser(User user) {
 		factory = new Configuration().configure().buildSessionFactory();
