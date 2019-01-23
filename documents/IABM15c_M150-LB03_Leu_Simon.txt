@@ -1,0 +1,2 @@
+Link Git repository: https://github.com/Typhon3/messenger
+Link SwaggerHub: https://app.swaggerhub.com/apis/Typhon3/MyAPI/1.0
