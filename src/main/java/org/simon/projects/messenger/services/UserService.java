@@ -2,6 +2,9 @@ package org.simon.projects.messenger.services;
 
 import java.util.List;
 
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.persistence.Query;
 
 import org.hibernate.Session;
@@ -16,16 +19,20 @@ import org.simon.projects.messenger.beans.User;
  * @author Simon Leu
  * @version 1.4
  */
+@ManagedBean(name = "userService")
+@SessionScoped
 public class UserService {
 	
-	private SessionFactory factory = new Configuration().configure().buildSessionFactory();
-	private Session session = factory.getCurrentSession();
+	private SessionFactory factory;
+	private Session session;
 
 	/**
 	 * Gets all users from the database
 	 * @return Returns a list of users
 	 */
 	public List<User> getAllUsers() {
+		factory = new Configuration().configure().buildSessionFactory();
+		session = factory.getCurrentSession();
 		session.beginTransaction();
 		Query query = session.createQuery("from User");
 		List<User> list = query.getResultList();
@@ -42,6 +49,8 @@ public class UserService {
 	 * @return Returns a user
 	 */
 	public User getUser(long id) {
+		factory = new Configuration().configure().buildSessionFactory();
+		session = factory.getCurrentSession();
 		session.beginTransaction();
 		Query query = session.createQuery("from User where idUser = :id ");
 		query.setParameter("id", id);
@@ -58,6 +67,8 @@ public class UserService {
 	 * @return A boolean is returned to indicate the updates success
 	 */
 	public boolean updateUser(User user) {
+		factory = new Configuration().configure().buildSessionFactory();
+		session = factory.getCurrentSession();
 		session.beginTransaction();
 		Query query = session.createQuery("update User set firstName = :firstName, lastName = :lastName where idUser = :id ");
 		query.setParameter("firstName", user.getFirstName());
@@ -82,7 +93,8 @@ public class UserService {
 	 * @return A boolean is returned to indicate the updates success
 	 */
 	public long addUser(User user) {
-		
+		factory = new Configuration().configure().buildSessionFactory();
+		session = factory.getCurrentSession();
 		session.beginTransaction();
 		long id = (long) session.save(user);
 		session.getTransaction().commit();
@@ -98,7 +110,8 @@ public class UserService {
 	 * @return A boolean is returned to indicate the deletions success
 	 */
 	public boolean deleteById(int id) {
-
+		factory = new Configuration().configure().buildSessionFactory();
+		session = factory.getCurrentSession();
 		session.beginTransaction();
 		Query query = session.createQuery("delete from User where idUser = :id ");
         query.setParameter("id", id);

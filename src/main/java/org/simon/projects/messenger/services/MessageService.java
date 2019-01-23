@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.persistence.Query;
 
 import org.hibernate.Session;
@@ -19,10 +22,12 @@ import org.simon.projects.messenger.beans.User;
  * @author Simon Leu
  * @version 1.5
  */
+@ManagedBean(name = "msgService")
+@SessionScoped
 public class MessageService {
 	
-	private SessionFactory factory = new Configuration().configure().buildSessionFactory();
-	private Session session = factory.getCurrentSession();
+	private SessionFactory factory;
+	private Session session;
 
 
 	/**
@@ -30,6 +35,8 @@ public class MessageService {
 	 * @return Returns a list of messages
 	 */
 	public List<Message> getAllMessages() {
+		factory = new Configuration().configure().buildSessionFactory();
+		session = factory.getCurrentSession();
 		session.beginTransaction();
 		Query query = session.createQuery("from Message");
 		List<Message> list = query.getResultList();
@@ -46,6 +53,8 @@ public class MessageService {
 	 * @return Returns a message
 	 */
 	public Message getMessage(long id) {
+		factory = new Configuration().configure().buildSessionFactory();
+		session = factory.getCurrentSession();
 		session.beginTransaction();
 		Query query = session.createQuery("from Message where idMessage = :id ");
 		query.setParameter("id", id);
@@ -62,6 +71,8 @@ public class MessageService {
 	 * @return A boolean is returned to indicate the updates success
 	 */
 	public boolean updateMessage(Message msg) {
+		factory = new Configuration().configure().buildSessionFactory();
+		session = factory.getCurrentSession();
 		session.beginTransaction();
 		Query query = session.createQuery("update Message set content = :content, User_idUser = :userId where idMessage = :id ");
 		query.setParameter("content", msg.getContent());
@@ -85,6 +96,8 @@ public class MessageService {
 	 * @return A boolean is returned to indicate the updates success
 	 */
 	public long addMessage(Message msg) {
+		factory = new Configuration().configure().buildSessionFactory();
+		session = factory.getCurrentSession();
 		msg.setCreatedOn(new Date());
 		session.beginTransaction();
 		long id = (long) session.save(msg);
@@ -100,6 +113,8 @@ public class MessageService {
 	 * @return A boolean is returned to indicate the deletions success
 	 */
 	public boolean deleteById(long id) {
+		factory = new Configuration().configure().buildSessionFactory();
+		session = factory.getCurrentSession();
 		session.beginTransaction();
 		Query query = session.createQuery("delete from Message where idMessage = :id ");
         query.setParameter("id", id);
